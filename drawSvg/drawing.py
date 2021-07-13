@@ -19,7 +19,7 @@ class Drawing:
         Supports iPython: If a Drawing is the last line of a cell, it will be
         displayed as an SVG below. '''
     def __init__(self, width, height, origin=(0,0), idPrefix='d',
-                 displayInline=True, **svgArgs):
+                 displayInline=True, svgY=False, **svgArgs):
         assert float(width) == width
         assert float(height) == height
         self.width = width
@@ -30,8 +30,6 @@ class Drawing:
             origin = tuple(origin)
             assert len(origin) == 2
             self.viewBox = origin + (width, height)
-        self.viewBox = (self.viewBox[0], -self.viewBox[1]-self.viewBox[3],
-                        self.viewBox[2], self.viewBox[3])
         self.elements = []
         self.orderedElements = defaultdict(list)
         self.otherDefs = []
@@ -40,6 +38,7 @@ class Drawing:
         self.renderHeight = None
         self.idPrefix = str(idPrefix)
         self.displayInline = displayInline
+        self.svgY = svgY
         self.svgArgs = {}
         for k, v in svgArgs.items():
             k = k.replace('__', ':')

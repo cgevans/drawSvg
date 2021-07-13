@@ -1,3 +1,5 @@
+This is a modified version of drawSvg that uses standard (positive y is down) SVG coordinates.
+
 # drawSvg
 
 A Python 3 library for programmatically generating SVG images (vector drawings) and rendering them or displaying them in a Jupyter notebook.
