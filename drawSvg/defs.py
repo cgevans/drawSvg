@@ -1,5 +1,5 @@
 
-from .elements import DrawingElement, DrawingParentElement
+from .elements import DrawingElement, DrawingParentElement, _Y_INV, _Y_SUB_HEIGHT
 
 
 class DrawingDef(DrawingParentElement):
@@ -20,9 +20,9 @@ class LinearGradient(DrawingDef):
         yShift = 0
         if gradientUnits != 'userSpaceOnUse':
             yShift = 1
-        try: y1 = yShift - y1
+        try: y1 = yShift + _Y_INV*y1
         except TypeError: pass
-        try: y2 = yShift - y2
+        try: y2 = yShift + _Y_INV*y2
         except TypeError: pass
         super().__init__(x1=x1, y1=y1, x2=x2, y2=y2, gradientUnits=gradientUnits,
                          **kwargs)
@@ -40,9 +40,9 @@ class RadialGradient(DrawingDef):
         yShift = 0
         if gradientUnits != 'userSpaceOnUse':
             yShift = 1
-        try: cy = yShift - cy
+        try: cy = yShift + _Y_INV*cy
         except TypeError: pass
-        try: fy = yShift - fy
+        try: fy = yShift + _Y_INV*fy
         except TypeError: pass
         super().__init__(cx=cx, cy=cy, r=r, gradientUnits=gradientUnits,
                          fy=fy, **kwargs)
@@ -97,7 +97,7 @@ class Marker(DrawingDef):
         kwargs = {
             'markerWidth': width if scale == 1 else float(width) * scale,
             'markerHeight': height if scale == 1 else float(height) * scale,
-            'viewBox': '{} {} {} {}'.format(minx, -maxy, width, height),
+            'viewBox': '{} {} {} {}'.format(minx, (1-_Y_SUB_HEIGHT)*miny - _Y_SUB_HEIGHT*maxy, width, height),
             'orient': orient,
             **kwargs,
         }
