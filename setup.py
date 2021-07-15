@@ -12,7 +12,7 @@ except:
     long_desc = None
 
 setup(
-    name = 'drawSvg',
+    name = 'drawSvg_svgy',
     packages = find_packages(),
     version = version,
     description = 'A Python 3 library for programmatically generating SVG images (vector drawings) and rendering them or displaying them in a Jupyter notebook',
